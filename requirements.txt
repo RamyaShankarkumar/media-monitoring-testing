@@ -1,4 +1,5 @@
 pandas
+pytest-html
 plotly
 pytest
 requests
