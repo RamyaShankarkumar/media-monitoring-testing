@@ -8,6 +8,10 @@ def test_get_videos(mock_get):
         "videos": ["video1", "video2"]
     }
 
+    
     response = requests.get("http://localhost:8000/videos")
+
+    
     assert response.status_code == 200
     assert "videos" in response.json()
+    assert len(response.json()["videos"]) == 2
