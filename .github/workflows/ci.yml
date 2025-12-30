@@ -28,3 +28,10 @@ jobs:
       with:
         name: test-report
         path: reports/report.html
+
+    - name: Upload Streaming Dashboard
+      uses: actions/upload-artifact@v4
+      with:
+        name: streaming-dashboard
+        path: reports/streaming_metrics.html
+
