@@ -27,9 +27,19 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Run Tests') {
             steps {
                 echo 'Test stage running'
+                sh '''
+                  . venv/bin/activate
+                  pytest --html=report.html --self-contained-html
+                '''
+            }
+        }
+
+        stage('Archive Report') {
+            steps {
+                archiveArtifacts artifacts: 'report.html', allowEmptyArchive: false
             }
         }
 
