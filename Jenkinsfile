@@ -32,7 +32,7 @@ pipeline {
                 echo 'Test stage running'
                 sh '''
                   . venv/bin/activate
-                  pytest --html=report.html --self-contained-html
+                  pytest api-tests/ -m "not integration" --html=reports/report.html --self-contained-html
                 '''
             }
         }
