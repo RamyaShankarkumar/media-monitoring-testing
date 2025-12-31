@@ -34,6 +34,7 @@ pipeline {
                   . venv/bin/activate
                   pytest api-tests/ -m "not integration" --html=reports/report.html --self-contained-html
                 '''
+                echo 'CHECKING FOR POLLING'
             }
         }
 
