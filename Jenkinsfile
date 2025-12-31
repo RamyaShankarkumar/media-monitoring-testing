@@ -54,10 +54,16 @@ pipeline {
 
     post {
         success {
-            slackSend channel: '#webhook-test', message: "Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+            sh """
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Build SUCCESS : $JOB_NAME #$BUILD_NUMBER\"}' $SLACK_WEBHOOK_URL
+            """
+            //slackSend channel: '#webhook-test', message: "Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
         }
         failure {
-            slackSend channel: '#webhook-test', message: "Build FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+            sh """
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Build FAILED : $JOB_NAME #$BUILD_NUMBER\"}' $SLACK_WEBHOOK_URL
+            """
+            //slackSend channel: '#webhook-test', message: "Build FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
         }
     }
 }
