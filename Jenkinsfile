@@ -51,4 +51,13 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            slackSend channel: '#ci-notifications', message: "Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+        }
+        failure {
+            slackSend channel: '#ci-notifications', message: "Build FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+        }
+    }
 }
