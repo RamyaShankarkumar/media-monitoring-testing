@@ -39,7 +39,8 @@ pipeline {
                   pytest api-tests/ -m "not integration" --html=reports/report.html --self-contained-html
                 '''
                 echo 'CHECKING FOR POLLING'
-                echo 'CHECKING FOR WEBHOOK'
+                echo 'CHECKING FOR GITHUB WEBHOOK'
+                echo 'CHECKING FOR SLACK WEBHOOK'
             }
         }
 
