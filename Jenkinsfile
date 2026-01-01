@@ -76,9 +76,7 @@ pipeline {
             Job: $JOB_NAME #$BUILD_NUMBER \\n
             Branch: $GIT_BRANCH\\n
             Author: $GIT_AUTHOR_NAME\\n
-            Message: $COMMIT_MSG\\"
-            }' \
-            $SLACK_WEBHOOK_URL
+            Message: $COMMIT_MSG"}' $SLACK_WEBHOOK_URL
             """
             //slackSend channel: '#webhook-test', message: "Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
         }
@@ -88,9 +86,7 @@ pipeline {
             Job: $JOB_NAME #$BUILD_NUMBER \\n
             Branch: $GIT_BRANCH\\n
             Author: $GIT_AUTHOR_NAME\\n
-            Message: $COMMIT_MSG\\"
-            }' \
-            $SLACK_WEBHOOK_URL
+            Message: $COMMIT_MSG"}' $SLACK_WEBHOOK_URL
             """
             //slackSend channel: '#webhook-test', message: "Build FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
         }
