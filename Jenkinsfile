@@ -10,6 +10,12 @@ pipeline {
             steps {
                 checkout scm
                 echo 'Code checked out successfully'
+                script {
+                    env.COMMIT_MSG = sh(
+                        script: "git log -1 --pretty=%B",
+                        returnStdout: true
+                    ).trim()
+                }
             }
         }
 
@@ -60,13 +66,27 @@ pipeline {
     post {
         success {
             sh """
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Build SUCCESS : $JOB_NAME #$BUILD_NUMBER\"}' $SLACK_WEBHOOK_URL
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Build SUCCESS \\n
+            Job: $JOB_NAME #$BUILD_NUMBER \\n
+            Branch: $GIT_BRANCH\\n
+            Author: $GIT_AUTHOR_NAME\\n
+            Message: $COMMIT_MSG\\n
+            Duration: $BUILD_DURATION_STRING\\"
+            }' \
+            $SLACK_WEBHOOK_URL
             """
             //slackSend channel: '#webhook-test', message: "Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
         }
         failure {
             sh """
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Build FAILED : $JOB_NAME #$BUILD_NUMBER\"}' $SLACK_WEBHOOK_URL
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Build Failure \\n
+            Job: $JOB_NAME #$BUILD_NUMBER \\n
+            Branch: $GIT_BRANCH\\n
+            Author: $GIT_AUTHOR_NAME\\n
+            Message: $COMMIT_MSG\\n
+            Duration: $BUILD_DURATION_STRING\\"
+            }' \
+            $SLACK_WEBHOOK_URL
             """
             //slackSend channel: '#webhook-test', message: "Build FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
         }
