@@ -15,6 +15,12 @@ pipeline {
                         script: "git log -1 --pretty=%B",
                         returnStdout: true
                     ).trim()
+
+                    env.GIT_AUTHOR_NAME = sh(
+                        script: "git log -1 --pretty=%an",
+                        returnStdout: true
+                    ).trim()
+                    
                 }
             }
         }
