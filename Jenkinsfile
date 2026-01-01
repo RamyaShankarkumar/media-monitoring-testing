@@ -76,8 +76,7 @@ pipeline {
             Job: $JOB_NAME #$BUILD_NUMBER \\n
             Branch: $GIT_BRANCH\\n
             Author: $GIT_AUTHOR_NAME\\n
-            Message: $COMMIT_MSG\\n
-            Duration: $BUILD_DURATION_STRING\\"
+            Message: $COMMIT_MSG\\"
             }' \
             $SLACK_WEBHOOK_URL
             """
@@ -89,8 +88,7 @@ pipeline {
             Job: $JOB_NAME #$BUILD_NUMBER \\n
             Branch: $GIT_BRANCH\\n
             Author: $GIT_AUTHOR_NAME\\n
-            Message: $COMMIT_MSG\\n
-            Duration: $BUILD_DURATION_STRING\\"
+            Message: $COMMIT_MSG\\"
             }' \
             $SLACK_WEBHOOK_URL
             """
